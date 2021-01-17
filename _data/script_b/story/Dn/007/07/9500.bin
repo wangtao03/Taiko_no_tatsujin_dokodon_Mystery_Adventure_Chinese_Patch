@@ -1,0 +1,18 @@
+Msg_Visible(true)
+Msg_Load("000_SEKI_R_SET_A")
+System_LoadWait()
+Msg_SetLabel("SEKI_R_000_Ms_006", true, true)
+Msg_ChoiseReturn("是\n否")
+if Msg_GetChoise() ~= 1 then
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if Msg_GetChoise() == 1 then
+  Msg_Clear()
+  Script_Entry(9510)
+  Battle_Set(1, true)
+  Battle_Start("007_BOSS_000", BATTLE_SONG_EB_07_B_BOSS, BATTLE_Dn_007_BOSS_DEBORA, -1)
+  return 0
+end
+return 0

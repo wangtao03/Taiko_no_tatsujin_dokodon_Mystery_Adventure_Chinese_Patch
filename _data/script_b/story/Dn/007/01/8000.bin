@@ -1,0 +1,56 @@
+Msg_Load("007_GIMMICK_SET_A")
+Se_Load(WSDSET_GIMMICK)
+System_LoadWait()
+Msg_Visible(true)
+if EventFlg_Get(GIMMICK_007_002) == 1 then
+  Msg_SetLabel("GIMMICK_000_Ms_300", true, true)
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if EventFlg_Get(GIMMICK_007_000) == 1 then
+  Msg_SetLabel("GIMMICK_000_Ms_200", true, true)
+  Msg_Choise("是\n否")
+  if Msg_GetChoise() == 2 then
+    Msg_Clear()
+    Msg_Visible(false)
+    return 0
+  end
+  if Msg_GetChoise() == 1 then
+    Msg_Clear()
+    Msg_Visible(false)
+    System_WaitFrame(5)
+    Se_Play(ADV_SE_PLAY_00, WSD_SE_GM_STUCK_RELEASE)
+    Object_MotionChange("GIMMICK_000", "MTN_0028_switch_off")
+    System_WaitFrame(15)
+    Adv_SetCameraPoint(true)
+    Camera_MovePoint(CAMERA_TYPE_PATH, "GIMMICK_PATH_000", 60)
+    Camera_MoveWait()
+    System_WaitFrame(10)
+    Se_Play(ADV_SE_PLAY_00, WSD_SE_GM_STUCK_OFF)
+    Object_MotionChange("GIMMICK_100", "MTN_0027_switch_stop")
+    Object_MotionChangeWait("GIMMICK_100")
+    System_WaitFrame(5)
+    Msg_Visible(true)
+    Msg_SetLabel("GIMMICK_000_Ms_201", true, true)
+    Msg_Clear()
+    Display_FadePlay(FADE_TYPE_OUT, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    System_WaitFrame(WAIT_FRAME_FAST)
+    Adv_SetCameraPoint(false)
+    EventFlg_Set(GIMMICK_007_002, 1)
+    System_AllDeleteEnemy()
+    Field_EventFrameEnable("GIMMICK_AREA_000", false)
+    Field_EventFrameEnable("GIMMICK_AREA_001", false)
+    Msg_Visible(false)
+    Display_FadePlay(FADE_TYPE_IN, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    System_WaitFrame(WAIT_FRAME_START)
+    return 0
+  end
+else
+  Msg_SetLabel("GIMMICK_000_Ms_400", true, true)
+  Msg_Clear()
+  Msg_Visible(false)
+end
+return 0

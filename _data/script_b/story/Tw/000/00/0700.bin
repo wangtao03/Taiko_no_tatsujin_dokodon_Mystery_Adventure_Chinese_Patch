@@ -1,0 +1,142 @@
+Msg_Load("SUB_007_009")
+System_LoadWait()
+Msg_Visible(true)
+Object_MoveDirObject("NPC_700", "PLAYER")
+if Param_GetItem("ITEM_050_UNKNOWN") == 0 then
+  if Param_GetItem("ITEM_051_UNKNOWN") == 0 then
+    if Param_GetItem("ITEM_052_UNKNOWN") == 0 then
+      Msg_Load("000_NPC_SET_A")
+      System_LoadWait()
+      Msg_SetLabel("NPC_700_Ms_000", true, true)
+      Msg_SetLabel("NPC_700_Ms_001", true, true)
+      Msg_SetLabel("NPC_700_Ms_002", true, true)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_700")
+      Msg_Visible(false)
+      return 0
+    end
+  end
+end
+if EventFlg_Get(SUB_007_009) == 0 then
+  Msg_SetLabel("SUB_007_009_Ms_000", true, true)
+  Msg_SetLabel("SUB_007_009_Ms_001", true, true)
+  EventFlg_Set(SUB_007_009, 1)
+  Msg_Clear()
+  Object_MoveDirDefault("NPC_700")
+  Msg_Visible(false)
+  return 0
+else
+  while true do
+    Msg_SetLabel("SUB_007_009_Ms_100", true, true)
+    Msg_ChoiseReturn("鉴定谜之书\n鉴定谜之碎片\n鉴定谜之宝玉")
+    if Msg_GetChoise() == 0 then
+      Msg_SetLabel("SUB_007_009_Ms_300", true, true)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_700")
+      Msg_Visible(false)
+      return 0
+    end
+    if Msg_GetChoise() == 1 then
+      if Param_GetItem("ITEM_050_UNKNOWN") == 0 then
+        Msg_SetLabel("SUB_007_009_Ms_400", true, true)
+        goto lbl_343
+        Msg_Clear()
+        Object_MoveDirDefault("NPC_700")
+        Msg_Visible(false)
+        return 0
+      else
+        Param_AddItem("ITEM_050_UNKNOWN", -1, true)
+        Msg_SetLabel("SUB_007_009_Ms_200", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_201", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_202", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_203", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_204", true, true)
+        math.random = math.random(0, 33)
+        string.format = string.format("SUB_007_009_Ms_7%02d", math.random)
+        math.random = math.random + 9
+        string.format = string.format("ITEM_0%02d%s", math.random, "_SKILL")
+        Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_GET)
+        Msg_SetLabel(string.format, true, true)
+        Param_AddItem(string.format, 1, true)
+        Msg_Clear()
+        Object_MoveDirDefault("NPC_700")
+        Msg_Visible(false)
+        return 0
+      end
+    end
+    if Msg_GetChoise() == 2 then
+      if Param_GetItem("ITEM_051_UNKNOWN") == 0 then
+        Msg_SetLabel("SUB_007_009_Ms_400", true, true)
+        goto lbl_343
+        Msg_Clear()
+        Object_MoveDirDefault("NPC_700")
+        Msg_Visible(false)
+        return 0
+      else
+        Param_AddItem("ITEM_051_UNKNOWN", -1, true)
+        Msg_SetLabel("SUB_007_009_Ms_200", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_201", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_202", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_203", true, true)
+        Msg_SetLabel("SUB_007_009_Ms_204", true, true)
+        Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_GET)
+        math.random = math.random(1, 3)
+        if math.random == 1 then
+          Msg_SetLabel("SUB_007_009_Ms_800", true, true)
+          Param_AddItem("ITEM_003_UP", 1, true)
+        elseif math.random == 2 then
+          Msg_SetLabel("SUB_007_009_Ms_801", true, true)
+          Param_AddItem("ITEM_005_UP", 1, true)
+        elseif math.random == 3 then
+          Msg_SetLabel("SUB_007_009_Ms_802", true, true)
+          Param_AddItem("ITEM_007_UP", 1, true)
+        end
+        Msg_Clear()
+        Object_MoveDirDefault("NPC_700")
+        Msg_Visible(false)
+        return 0
+      end
+    end
+    if Msg_GetChoise() ~= 3 then
+      goto lbl_442
+    end
+    if Param_GetItem("ITEM_052_UNKNOWN") ~= 0 then
+      goto lbl_355
+    end
+    Msg_SetLabel("SUB_007_009_Ms_400", true, true)
+    ::lbl_343::
+  end
+  Msg_Clear()
+  Object_MoveDirDefault("NPC_700")
+  Msg_Visible(false)
+  do return 0 end
+  goto lbl_442
+  ::lbl_355::
+  Param_AddItem("ITEM_052_UNKNOWN", -1, true)
+  Msg_SetLabel("SUB_007_009_Ms_200", true, true)
+  Msg_SetLabel("SUB_007_009_Ms_201", true, true)
+  Msg_SetLabel("SUB_007_009_Ms_202", true, true)
+  Msg_SetLabel("SUB_007_009_Ms_203", true, true)
+  Msg_SetLabel("SUB_007_009_Ms_204", true, true)
+  Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_GET)
+  math.random = math.random(1, 3)
+  if math.random == 1 then
+    Msg_SetLabel("SUB_007_009_Ms_900", true, true)
+    Param_AddItem("ITEM_004_UP", 1, true)
+  elseif math.random == 2 then
+    Msg_SetLabel("SUB_007_009_Ms_901", true, true)
+    Param_AddItem("ITEM_006_UP", 1, true)
+  elseif math.random == 3 then
+    Msg_SetLabel("SUB_007_009_Ms_902", true, true)
+    Param_AddItem("ITEM_008_UP", 1, true)
+  end
+  Msg_Clear()
+  Object_MoveDirDefault("NPC_700")
+  Msg_Visible(false)
+  return 0
+end
+::lbl_442::
+Msg_Clear()
+Object_MoveDirDefault("NPC_700")
+Msg_Visible(false)
+return 0

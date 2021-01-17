@@ -1,0 +1,73 @@
+Msg_Visible(true)
+Msg_Load("005_GIMMICK_SET_B")
+Se_Load(WSDSET_GIMMICK)
+System_LoadWait()
+if EventFlg_Get(GIMMICK_005_004) < 1 then
+  Msg_SetLabel("GIMMICK_005_Ms_600", true, true)
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if EventFlg_Get(GIMMICK_005_000) ~= 1 then
+  if EventFlg_Get(GIMMICK_005_001) ~= 1 then
+    goto lbl_219
+  end
+end
+Msg_SetLabel("GIMMICK_005_Ms_999_B", true, true)
+Msg_Choise("是\n否")
+if Msg_GetChoise() == 2 then
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if Msg_GetChoise() == 1 then
+  Msg_Clear()
+  Msg_Visible(false)
+  Param_AddItem("ITEM_080_SUB", -1, true)
+  if EventFlg_Get(GIMMICK_005_002) == 2 then
+    Se_Play(ADV_SE_PLAY_00, WSD_SE_GM_OBJ_SET)
+    Object_Active("OBJ_KORI_TAMA_B", true)
+    EventFlg_Add(GIMMICK_005_004, -1)
+    Object_Active("OBJECT_008", false)
+    Object_Load()
+    System_LoadWait()
+    System_WaitFrame(5)
+    Adv_SetCameraPoint(true)
+    Camera_MovePoint(CAMERA_TYPE_OBJ, "OBJ_KAIDAN", 60)
+    Camera_MoveWait()
+    Field_EventFrameEnable("GIMMICK_000", false)
+    Display_FadePlay(FADE_TYPE_OUT, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    Se_Play(ADV_SE_PLAY_00, WSD_SE_GM_ICE_CREATION)
+    Object_Active("OBJ_KAIDAN", true)
+    Object_Active("OBJECT_004", false)
+    System_WaitFrame(80)
+    Object_Load()
+    System_LoadWait()
+    Display_FadePlay(FADE_TYPE_IN, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    System_WaitFrame(WAIT_FRAME_START)
+    System_WaitFrame(10)
+    Msg_Visible(true)
+    Msg_SetLabel("GIMMICK_005_Ms_999_A", true, true)
+    Msg_Clear()
+    Display_FadePlay(FADE_TYPE_OUT, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    System_WaitFrame(WAIT_FRAME_FAST)
+    Adv_SetCameraPoint(false)
+    EventFlg_Set(GIMMICK_005_003, 2)
+    Msg_Visible(false)
+    Display_FadePlay(FADE_TYPE_IN, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+    Display_FadeWait()
+    System_WaitFrame(WAIT_FRAME_START)
+    return 0
+  end
+end
+Object_Active("OBJ_KORI_TAMA_B", true)
+Object_Active("OBJECT_008", false)
+EventFlg_Set(GIMMICK_005_003, 2)
+EventFlg_Add(GIMMICK_005_004, -1)
+Object_Load()
+System_LoadWait()
+::lbl_219::
+return 0

@@ -1,0 +1,35 @@
+Msg_Load("SUB_002_103")
+System_LoadWait()
+if StorySystem_GetStory() >= STORY_001_A then
+  if EventFlg_Get(SUB_002_103) == 0 then
+    Msg_Visible(true)
+    Object_MoveDirObject("NPC_100", "PLAYER")
+    Msg_SetLabel("SUB_002_103_Ms_000", true, true)
+    Msg_SetLabel("SUB_002_103_Ms_001", true, true)
+    Msg_Choise("交给我咚。\n现在很忙咚……")
+    if Msg_GetChoise() == 2 then
+      Msg_SetLabel("SUB_002_103_Ms_100", true, true)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_100")
+      Msg_Visible(false)
+      return 0
+    end
+    if Msg_GetChoise() == 1 then
+      Msg_Clear()
+      Script_Entry(2100)
+      ModeJump_Challenge("CHALLENGE_SUB_002_103", BATTLE_Fl_001)
+      return 0
+    end
+    return 0
+  end
+  Msg_Visible(true)
+  if EventFlg_Get(SUB_002_103) == 1 then
+    Object_MoveDirObject("NPC_100", "PLAYER")
+    Msg_SetLabel("SUB_002_103_Ms_400", true, true)
+    Msg_SetLabel("SUB_002_103_Ms_401", true, true)
+    Object_MoveDirDefault("NPC_100")
+    Msg_Clear()
+    Msg_Visible(false)
+  end
+end
+return 0

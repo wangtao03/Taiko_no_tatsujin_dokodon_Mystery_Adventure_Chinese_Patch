@@ -1,0 +1,45 @@
+StorySystem_OpenArea("AREA_DN_003_02", true)
+Msg_Visible(true)
+Msg_Load("000_SEKIBAN_SET_A")
+System_LoadWait()
+if EventFlg_Get(SEKIBAN_DN_003_02) == 0 then
+  EventFlg_Set(SEKIBAN_DN_003_02, 1)
+  StorySystem_AutoSave()
+  Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_GET)
+  Msg_SetLabel("SEKIBAN_000_Ms_000", true, true)
+else
+  Msg_SetLabel("SEKIBAN_000_Ms_100", true, true)
+end
+Msg_ChoiseReturn("回复\n回到博物馆")
+if Msg_GetChoise() == 0 then
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if Msg_GetChoise() == 2 then
+  Msg_Clear()
+  Msg_Visible(false)
+  Display_FadePlay(FADE_TYPE_OUT, FADE_COLOR_BLACK, FADE_FRAME_FAST, FADE_DISPLAY_UD)
+  Display_FadeWait()
+  System_WaitFrame(WAIT_FRAME_END)
+  EventFlg_Set(SEKIBAN_RETURN, 1)
+  Field_MapChange(MAP_CHANGE_TOWN, 0, 0, "PATH_LOSE_BACK")
+  return 0
+end
+if Msg_GetChoise() == 1 then
+  Msg_Clear()
+  Msg_Visible(false)
+  Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_RECOVER)
+  Display_FilterPlay(255, 255, 255, 255, FADE_FRAME_FAST, FILTER_SET_MSG_BACK)
+  Display_FilterWait()
+  Param_RestParty()
+  Display_FilterPlay(255, 255, 255, 0, FADE_FRAME_FAST, FILTER_SET_MSG_BACK)
+  Display_FilterWait()
+  Msg_Visible(true)
+  Msg_SetLabel("SEKIBAN_000_Ms_200", true, true)
+  Msg_Clear()
+  Msg_Visible(false)
+  StorySystem_AutoSave()
+  return 0
+end
+return 0

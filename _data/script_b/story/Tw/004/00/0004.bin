@@ -1,0 +1,72 @@
+Msg_Load("SUB_004_000")
+System_LoadWait()
+if StorySystem_GetStory() >= STORY_004_A then
+  if EventFlg_Get(SUB_004_000) == 0 then
+    Msg_Visible(true)
+    Object_MoveDirObject("NPC_004", "PLAYER")
+    Msg_SetLabel("SUB_004_000_Ms_000", true, true)
+    Msg_SetLabel("SUB_004_000_Ms_001", true, true)
+    Msg_SetLabel("SUB_004_000_Ms_002", true, true)
+    Msg_Choise("交给我咚。\n现在很忙咚……")
+    if Msg_GetChoise() == 2 then
+      Msg_SetLabel("SUB_004_000_Ms_400", true, true)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_004")
+      Msg_Visible(false)
+      return 0
+    end
+    if Msg_GetChoise() == 1 then
+      Msg_SetLabel("SUB_004_000_Ms_100", true, true)
+      Msg_SetLabel("SUB_004_000_Ms_101", true, true)
+      Msg_SetLabel("SUB_004_000_Ms_102", true, true)
+      EventFlg_Set(SUB_004_000, 1)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_004")
+      Msg_Visible(false)
+      return 0
+    end
+  end
+  if EventFlg_Get(SUB_004_000) == 2 then
+    Msg_Visible(true)
+    Msg_SetLabel("SUB_004_000_Ms_500", true, true)
+    Msg_Clear()
+    Object_MoveDirDefault("NPC_004")
+    Msg_Visible(false)
+    return 0
+  end
+  if EventFlg_Get(SUB_004_000) == 3 then
+    Msg_Visible(true)
+    Object_MoveDirObject("NPC_004", "PLAYER")
+    Msg_SetLabel("SUB_004_000_Ms_600", true, true)
+    Msg_Clear()
+    Object_MoveDirDefault("NPC_004")
+    Msg_Visible(false)
+    return 0
+  end
+  if EventFlg_Get(SUB_004_000) == 1 then
+    if 3 <= Param_GetItem("ITEM_077_SUB") then
+      Msg_Visible(true)
+      Object_MoveDirObject("NPC_004", "PLAYER")
+      Msg_SetLabel("SUB_004_000_Ms_300", true, true)
+      Msg_SetLabel("SUB_004_000_Ms_700", true, true)
+      Param_AddItem("ITEM_077_SUB", -3, true)
+      Msg_SetLabel("SUB_004_000_Ms_301", true, true)
+      Se_Play(ADV_SE_PLAY_00, WSD_SE_ITEM_GET)
+      Msg_SetLabel("SUB_004_000_Ms_999", true, true)
+      Param_AddItem("ITEM_005_UP", 2, true)
+      Msg_Clear()
+      Object_MoveDirDefault("NPC_004")
+      Msg_Visible(false)
+      EventFlg_Set(SUB_004_000, 2)
+      return 0
+    else
+      Msg_Visible(true)
+      Object_MoveDirObject("NPC_004", "PLAYER")
+      Msg_SetLabel("SUB_004_000_Ms_200", true, true)
+      Object_MoveDirDefault("NPC_004")
+      Msg_Visible(false)
+      return 0
+    end
+  end
+end
+return 0

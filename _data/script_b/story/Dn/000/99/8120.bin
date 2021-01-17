@@ -1,0 +1,13 @@
+Msg_Visible(true)
+Msg_Choise("和第6章玛提乌斯＆阿诺德＆莉莉战斗\n不战斗")
+if Msg_GetChoise() == 2 then
+  Msg_Clear()
+  Msg_Visible(false)
+  return 0
+end
+if Msg_GetChoise() == 1 then
+  Script_Entry(9999)
+  Battle_Set(1, true)
+  Battle_Start("000_BOSS_012", BATTLE_SONG_EB_06_A_BOSS, BATTLE_Dn_006_BOSS, -1)
+end
+return 0
