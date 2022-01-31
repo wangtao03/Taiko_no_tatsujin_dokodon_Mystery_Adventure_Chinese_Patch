@@ -1,0 +1,53 @@
+//------------------------------------------------
+//--- 010 Editor v8.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+
+
+
+struct subText(int titleAddr,int textAddr,int txtSize){
+    FSeek(titleAddr);
+    char Title[textAddr-titleAddr]; 
+    FSeek(textAddr);
+    char Text[txtSize];
+};
+
+struct subTextAddr{
+    int titleAddr<format=hex>;
+    int textAddr<format=hex>;
+    //local int nowPoint = FTell();
+    //subText subTxt(titleAddr,textAddr);
+    //FSeek(nowPoint);
+};
+
+
+
+int subTextCount;
+int mainTitleAddr<format=hex>;
+int subText_List<format=hex>;
+
+
+FSeek(mainTitleAddr);
+
+char TITTLE[subText_List-mainTitleAddr];
+
+FSeek(subText_List);
+
+subTextAddr subTextAddrs[subTextCount]<optimize=false>;
+
+local int i;
+
+for( i = 0;i < subTextCount-1; i++ )
+{
+    subText subTxt(subTextAddrs[i].titleAddr,subTextAddrs[i].textAddr,subTextAddrs[i+1].titleAddr-subTextAddrs[i].textAddr);
+}
+subText subTxt(subTextAddrs[i].titleAddr,subTextAddrs[i].textAddr,FileSize()-subTextAddrs[i].textAddr);

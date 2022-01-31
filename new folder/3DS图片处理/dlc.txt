@@ -1,0 +1,4 @@
+\system\songtitle\song_title_tate.txp
+\system\songtitle\song_title_tate_sub.txp
+\system\songtitle\song_title_yoko.txp
+\system\songtitle\song_title_yoko_sub.txp

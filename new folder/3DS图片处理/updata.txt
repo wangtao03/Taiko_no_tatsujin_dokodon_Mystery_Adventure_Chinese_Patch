@@ -1,0 +1,4 @@
+\enso\battle\battle.txp
+\enso\onpu\onpu.txp
+\wireless\quest.txp
+\wireless\wireless.txp

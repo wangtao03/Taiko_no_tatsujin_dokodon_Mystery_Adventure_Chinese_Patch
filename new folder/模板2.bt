@@ -1,0 +1,35 @@
+//------------------------------------------------
+//--- 010 Editor v8.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+struct indexs(){
+    long IdAddr;
+    long NameAddr;
+    short UnKnow1;
+    short UnKnow2;
+};
+
+struct texts(long idAddr,long nameAddr,long namelong){
+    FSeek(idAddr);
+    char Identifier[nameAddr-idAddr]; 
+    FSeek(nameAddr);
+    char Name[namelong];
+};
+
+long Magic;
+long Count;
+byte Unkonw[8];
+indexs idx[Count];
+local int i;
+for( i = 0;i < Count-1; i++ )
+{
+    texts txt(idx[i].IdAddr,idx[i].NameAddr,idx[i+1].IdAddr-idx[i].NameAddr);
+};
